@@ -14,10 +14,10 @@
                     "architecture": "tivac",
                     "version": "1.0.2",
                     "category": "Energia",
-                    "url": "https://cdn.hackaday.io/files/21284910614656/arduino-tiva-core-1.0.2.zip",
-                    "archiveFileName": "arduino-tiva-core-1.0.2.zip",
-                    "checksum": "SHA-256:1b7d592d4d19dd1a16e04b71bd4f3895267da2f7a05a1fb4e9cfcdf50950e34c",
-                    "size": "3018075",
+                    "url": "https://cdn.hackaday.io/files/21284910614656/arduino-tiva-core-1.0.2_a.zip",
+                    "archiveFileName": "arduino-tiva-core-1.0.2_a.zip",
+                    "checksum": "SHA-256:d0d1e84d81d05333a378ed76748fc618fdfe32f19d0fc0d7d27c46282c02ac75",
+                    "size": "3018038",
                     "help":{
                         "online":"https://hackaday.io/project/21284-arduino-tiva"
                     },
