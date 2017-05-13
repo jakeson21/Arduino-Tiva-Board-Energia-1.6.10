@@ -16,8 +16,8 @@
                     "category": "Energia",
                     "url": "https://cdn.hackaday.io/files/21284910614656/arduino-tiva-core-1.0.2_2.zip",
                     "archiveFileName": "arduino-tiva-core-1.0.2_2.zip",
-                    "checksum": "SHA-256:D7735CB22E5DAF91879CC8C173BEB7EECBBFCF26013F3BC5B37221E3B442545C",
-                    "size": "3003048",
+                    "checksum": "SHA-256:164E0E5583BE1DFFAE8F4A727320160019BAE74DFCB562F79FF00184394115E5",
+                    "size": "2999063",
                     "help":{
                         "online":"https://hackaday.io/project/21284-arduino-tiva"
                     },
