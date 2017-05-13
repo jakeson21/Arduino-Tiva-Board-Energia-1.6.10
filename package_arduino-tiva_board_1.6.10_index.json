@@ -22,7 +22,7 @@
                         "online":"https://hackaday.io/project/21284-arduino-tiva"
                     },
                     "boards": [
-                        {"name": "Arduino-Tiva 80 MHz"}
+                        {"name": "Arduino-Tiva 80 MHz"},
                         {"name": "Arduino-Tiva 16 MHz"}
                     ],
                     "toolsDependencies": [
