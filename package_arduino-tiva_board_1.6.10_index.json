@@ -16,13 +16,14 @@
                     "category": "Energia",
                     "url": "https://cdn.hackaday.io/files/21284910614656/arduino-tiva-core-1.0.2_2.zip",
                     "archiveFileName": "arduino-tiva-core-1.0.2_2.zip",
-                    "checksum": "SHA-256:14764514C00DF40C9D34C824D06F458F9607C7CD52379748D7887C54C8ECAB90",
-                    "size": "2996514",
+                    "checksum": "SHA-256:51F5855DF2468A6E18FD12330BF1E1A38E3C1736D32F5CADCEB56767F23CD229",
+                    "size": "3003027",
                     "help":{
                         "online":"https://hackaday.io/project/21284-arduino-tiva"
                     },
                     "boards": [
-                        {"name": "Arduino-Tiva"}
+                        {"name": "Arduino-Tiva 80 MHz"}
+                        {"name": "Arduino-Tiva 16 MHz"}
                     ],
                     "toolsDependencies": [
                         {
