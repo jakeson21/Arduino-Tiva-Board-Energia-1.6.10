@@ -94,6 +94,11 @@ __attribute__((weak)) void UARTIntHandler6(void) {}
 __attribute__((weak)) void UARTIntHandler7(void) {}
 __attribute__((weak)) void ToneIntHandler(void) {}
 __attribute__((weak)) void I2CIntHandler(void) {}
+__attribute__((weak)) void PWM0IntHandler(void) {}
+__attribute__((weak)) void PWM1IntHandler(void) {}
+__attribute__((weak)) void PWM2IntHandler(void) {}
+__attribute__((weak)) void PWM3IntHandler(void) {}
+
 //*****************************************************************************
 // System stack start determined by ldscript, normally highest ram address
 //*****************************************************************************
@@ -136,9 +141,9 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // SSI0 Rx and Tx
     I2CIntHandler,                          // I2C0 Master and Slave
     IntDefaultHandler,                      // PWM Fault
-    IntDefaultHandler,                      // PWM Generator 0
-    IntDefaultHandler,                      // PWM Generator 1
-    IntDefaultHandler,                      // PWM Generator 2
+    PWM0IntHandler,                         // PWM Generator 0
+    PWM1IntHandler,                         // PWM Generator 1
+    PWM2IntHandler,                         // PWM Generator 2
     IntDefaultHandler,                      // Quadrature Encoder 0
     IntDefaultHandler,                      // ADC Sequence 0
     IntDefaultHandler,                      // ADC Sequence 1
@@ -171,7 +176,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // Ethernet
     IntDefaultHandler,                      // Hibernate
     IntDefaultHandler,                      // USB0
-    IntDefaultHandler,                      // PWM Generator 3
+    PWM3IntHandler,                         // PWM Generator 3
     IntDefaultHandler,                      // uDMA Software Transfer
     IntDefaultHandler,                      // uDMA Error
     IntDefaultHandler,                      // ADC1 Sequence 0

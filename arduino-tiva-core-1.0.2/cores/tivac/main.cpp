@@ -4,7 +4,7 @@
 #include "inc/tm4c129xnczad.h"
 #elif defined(PART_TM4C1294NCPDT)
 #include "inc/tm4c1294ncpdt.h"
-#elif defined(PART_TM4C1233H6PM) || defined(PART_LM4F120H5QR)
+#elif defined(PART_TM4C123GH6PM) || defined(PART_LM4F120H5QR)
 #include "inc/tm4c123gh6pm.h"
 #else
 #error "**** No PART defined or unsupported PART ****"

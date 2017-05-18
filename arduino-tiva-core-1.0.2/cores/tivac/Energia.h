@@ -19,7 +19,7 @@
 #define PART_TM4C1294NCPDT
 #elif defined(__LM4F120H5QR__) || defined(__TM4C123GH6PM__)
 #define TARGET_IS_BLIZZARD_RB1
-#define PART_TM4C1233H6PM
+#define PART_TM4C123GH6PM
 #define PART_LM4F120H5QR
 #else
 #error "**** No PART defined or unsupported PART ****"
