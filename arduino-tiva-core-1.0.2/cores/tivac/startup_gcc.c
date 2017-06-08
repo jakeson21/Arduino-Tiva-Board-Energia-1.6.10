@@ -80,6 +80,7 @@ extern void GPIOTIntHandler(void);
 #endif
 extern void lwIPEthernetIntHandler(void) __attribute__((weak));
 extern void SysTickIntHandler(void);
+extern void USB0DeviceIntHandler(void);
 
 /*
  * create some overridable default signal handlers
@@ -175,7 +176,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // CAN2
     IntDefaultHandler,                      // Ethernet
     IntDefaultHandler,                      // Hibernate
-    IntDefaultHandler,                      // USB0
+    USB0DeviceIntHandler,                   // USB0
     PWM3IntHandler,                         // PWM Generator 3
     IntDefaultHandler,                      // uDMA Software Transfer
     IntDefaultHandler,                      // uDMA Error

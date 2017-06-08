@@ -21,6 +21,8 @@
 #define TARGET_IS_BLIZZARD_RB1
 #define PART_TM4C123GH6PM
 #define PART_LM4F120H5QR
+#define PART_IS_BLIZZARD_RB1
+#define TARGET_IS_TM4C123_RB1
 #else
 #error "**** No PART defined or unsupported PART ****"
 #endif
