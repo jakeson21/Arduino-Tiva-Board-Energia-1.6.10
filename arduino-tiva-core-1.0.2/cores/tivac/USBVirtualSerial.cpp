@@ -1,15 +1,11 @@
 #include <USBVirtualSerial.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 //*****************************************************************************
 //
 // The languages supported by this device.
 //
 //*****************************************************************************
-const uint8_t g_pui8LangDescriptor[] =
+static const uint8_t g_pui8LangDescriptor[] =
 {
     4,
     USB_DTYPE_STRING,
@@ -21,7 +17,7 @@ const uint8_t g_pui8LangDescriptor[] =
 // The manufacturer string.
 //
 //*****************************************************************************
-const uint8_t g_pui8ManufacturerString[] =
+static const uint8_t g_pui8ManufacturerString[] =
 {
     (17 + 1) * 2,
     USB_DTYPE_STRING,
@@ -34,7 +30,7 @@ const uint8_t g_pui8ManufacturerString[] =
 // The product string.
 //
 //*****************************************************************************
-const uint8_t g_pui8ProductString[] =
+static const uint8_t g_pui8ProductString[] =
 {
     2 + (16 * 2),
     USB_DTYPE_STRING,
@@ -47,7 +43,7 @@ const uint8_t g_pui8ProductString[] =
 // The serial number string.
 //
 //*****************************************************************************
-const uint8_t g_pui8SerialNumberString[] =
+static const uint8_t g_pui8SerialNumberString[] =
 {
     2 + (3 * 2),
     USB_DTYPE_STRING,
@@ -59,7 +55,7 @@ const uint8_t g_pui8SerialNumberString[] =
 // The control interface description string.
 //
 //*****************************************************************************
-const uint8_t g_pui8ControlInterfaceString[] =
+static const uint8_t g_pui8ControlInterfaceString[] =
 {
     2 + (21 * 2),
     USB_DTYPE_STRING,
@@ -73,7 +69,7 @@ const uint8_t g_pui8ControlInterfaceString[] =
 // The configuration description string.
 //
 //*****************************************************************************
-const uint8_t g_pui8ConfigString[] =
+static const uint8_t g_pui8ConfigString[] =
 {
     2 + (25 * 2),
     USB_DTYPE_STRING,
@@ -88,7 +84,7 @@ const uint8_t g_pui8ConfigString[] =
 // The descriptor string table.
 //
 //*****************************************************************************
-const uint8_t * const g_ppui8StringDescriptors[] =
+static const uint8_t * const g_ppui8StringDescriptors[] =
 {
     g_pui8LangDescriptor,
     g_pui8ManufacturerString,
@@ -101,113 +97,210 @@ const uint8_t * const g_ppui8StringDescriptors[] =
 #define NUM_STRING_DESCRIPTORS (sizeof(g_ppui8StringDescriptors) /            \
                                 sizeof(uint8_t *))
 
-//*****************************************************************************
-//
-// CDC device callback function prototypes.
-//
-//*****************************************************************************
-uint32_t RxHandler(void *pvCBData, uint32_t ui32Event,
-                   uint32_t ui32MsgValue, void *pvMsgData);
-uint32_t TxHandler(void *pvCBData, uint32_t ui32Event,
-                   uint32_t ui32MsgValue, void *pvMsgData);
-uint32_t ControlHandler(void *pvCBData, uint32_t ui32Event,
-                        uint32_t ui32MsgValue, void *pvMsgData);
 
-//*****************************************************************************
-//
-// The CDC device initialization and customization structures. In this case,
-// we are using USBBuffers between the CDC device class driver and the
-// application code. The function pointers and callback data values are set
-// to insert a buffer in each of the data channels, transmit and receive.
-//
-// With the buffer in place, the CDC channel callback is set to the relevant
-// channel function and the callback data is set to point to the channel
-// instance data. The buffer, in turn, has its callback set to the application
-// function and the callback data set to our CDC instance structure.
-//
-//*****************************************************************************
-tUSBDCDCDevice g_sCDCDevice =
+static uint32_t RxHandlerProxy(void *pvCBData, uint32_t ui32Event,
+            uint32_t ui32MsgValue, void *pvMsgData)
 {
-    USB_VID_TI_1CBE,
-    USB_PID_SERIAL,
-    250/2,
-    USB_CONF_ATTR_BUS_PWR,
-    ControlHandler,
-    (void *)&g_sCDCDevice,
-    USBBufferEventCallback,
-    (void *)&g_sRxBuffer,
-    USBBufferEventCallback,
-    (void *)&g_sTxBuffer,
-    g_ppui8StringDescriptors,
-    NUM_STRING_DESCRIPTORS
-};
+    USBSerial.RxHandler(pvCBData, ui32Event, ui32MsgValue, pvMsgData);
+}
 
-//*****************************************************************************
-//
-// Receive buffer (from the USB perspective).
-//
-//*****************************************************************************
-uint8_t g_pui8USBRxBuffer[UART_BUFFER_SIZE];
-tUSBBuffer g_sRxBuffer =
+static uint32_t TxHandlerProxy(void *pvi32CBData, uint32_t ui32Event,
+            uint32_t ui32MsgValue, void *pvMsgData)
 {
-    false,                          // This is a receive buffer.
-    RxHandler,                      // pfnCallback
-    (void *)&g_sCDCDevice,          // Callback data is our device pointer.
-    USBDCDCPacketRead,              // pfnTransfer
-    USBDCDCRxPacketAvailable,       // pfnAvailable
-    (void *)&g_sCDCDevice,          // pvHandle
-    g_pui8USBRxBuffer,              // pui8Buffer
-    UART_BUFFER_SIZE,               // ui32BufferSize
-};
+    USBSerial.TxHandler(pvi32CBData, ui32Event, ui32MsgValue, pvMsgData);
+}
 
-//*****************************************************************************
-//
-// Transmit buffer (from the USB perspective).
-//
-//*****************************************************************************
-uint8_t g_pui8USBTxBuffer[UART_BUFFER_SIZE];
-tUSBBuffer g_sTxBuffer =
+static uint32_t CtrlHandlerProxy(void *pvCBData, uint32_t ui32Event,
+              uint32_t ui32MsgValue, void *pvMsgData)
 {
-    true,                           // This is a transmit buffer.
-    TxHandler,                      // pfnCallback
-    (void *)&g_sCDCDevice,          // Callback data is our device pointer.
-    USBDCDCPacketWrite,             // pfnTransfer
-    USBDCDCTxPacketAvailable,       // pfnAvailable
-    (void *)&g_sCDCDevice,          // pvHandle
-    g_pui8USBTxBuffer,              // pui8Buffer
-    UART_BUFFER_SIZE,               // ui32BufferSize
-};
+    USBSerial.ControlHandler(pvCBData, ui32Event, ui32MsgValue, pvMsgData);
+}
+
+USBVirtualSerial::USBVirtualSerial()
+{
+    //*****************************************************************************
+    //
+    // The CDC device initialization and customization structures. In this case,
+    // we are using USBBuffers between the CDC device class driver and the
+    // application code. The function pointers and callback data values are set
+    // to insert a buffer in each of the data channels, transmit and receive.
+    //
+    // With the buffer in place, the CDC channel callback is set to the relevant
+    // channel function and the callback data is set to point to the channel
+    // instance data. The buffer, in turn, has its callback set to the application
+    // function and the callback data set to our CDC instance structure.
+    //
+    //*****************************************************************************
+    sCDCDevice = 
+    {
+        USB_VID_TI_1CBE,
+        USB_PID_SERIAL,
+        250/2,
+        USB_CONF_ATTR_BUS_PWR,
+        &CtrlHandlerProxy,
+        (void *)&sCDCDevice,
+        USBBufferEventCallback,
+        (void *)&sRxBuffer,
+        USBBufferEventCallback,
+        (void *)&sTxBuffer,
+        g_ppui8StringDescriptors,
+        NUM_STRING_DESCRIPTORS
+    };
+
+    // Receive buffer (from the USB perspective).
+    sRxBuffer =
+    {
+        false,                          // This is a receive buffer.
+        &RxHandlerProxy,                // pfnCallback
+        (void *)&sCDCDevice,            // Callback data is our device pointer.
+        USBDCDCPacketRead,              // pfnTransfer
+        USBDCDCRxPacketAvailable,       // pfnAvailable
+        (void *)&sCDCDevice,            // pvHandle
+        pui8USBRxBuffer,                // pui8Buffer
+        USB_SERIAL_BUFFER_SIZE,         // ui32BufferSize
+    };
+
+    // Transmit buffer (from the USB perspective).
+    sTxBuffer =
+    {
+        true,                           // This is a transmit buffer.
+        &TxHandlerProxy,                // pfnCallback
+        (void *)&sCDCDevice,            // Callback data is our device pointer.
+        USBDCDCPacketWrite,             // pfnTransfer
+        USBDCDCTxPacketAvailable,       // pfnAvailable
+        (void *)&sCDCDevice,            // pvHandle
+        pui8USBTxBuffer,                // pui8Buffer
+        USB_SERIAL_BUFFER_SIZE,         // ui32BufferSize
+    };
+
+    // Flag indicating whether or not we are currently sending a Break condition.
+    bool bSendingBreak = false;
+
+    // Global flag indicating that a USB configuration has been set.
+    bUSBConfigured = false;
+
+    ui32VCPRxCount = 0;
+    ui32VCPTxCount = 0;
+    ui32Flags = 0;
+    pcStatus = 0;
+    pfnCheckInitBootloader = 0;
+}
+
+// Nothing to do
+void USBVirtualSerial::begin(tVCOMCheckInitBootloaderCallback pBootloaderCallback)
+{
+    ctrlHandlerCalled = 0;
+    sConfiguredLineCoding = {0,0,0,0};
+    ctrlHandlerCount = 0;
+
+    InitUSBVCOM(pBootloaderCallback);
+}
+
+void USBVirtualSerial::setBufferSize(unsigned long txsize, unsigned long rxsize)
+{
+    // // Allocate TX & RX buffers
+    // if (pui8USBTxBuffer != (uint8_t *)0xFFFFFFFF)  // Catch attempts to re-init this Serial instance by freeing old buffer first
+        // free(pui8USBTxBuffer);
+    // if (pui8USBRxBuffer != (uint8_t *)0xFFFFFFFF)  // Catch attempts to re-init this Serial instance by freeing old buffer first
+        // free(pui8USBRxBuffer);
+    // pui8USBTxBuffer = (uint8_t *) malloc(txsize);
+    // pui8USBRxBuffer = (uint8_t *) malloc(rxsize);
+
+    // // Reset USB buffers to new locations
+    // sTxBuffer.pui8Buffer = pui8USBTxBuffer;
+    // sRxBuffer.pui8Buffer = pui8USBRxBuffer;
+}
+
+// Nothing to do
+void USBVirtualSerial::setModule(unsigned long module) { }
+// Nothing to do
+void USBVirtualSerial::setPins(unsigned long pins) { }
+// Nothing to do. Don't actually disable USB.
+void USBVirtualSerial::end(void) { }
+
+int USBVirtualSerial::available(void)
+{
+    return USBBufferDataAvailable((tUSBBuffer *)&sRxBuffer);
+}
+
+int USBVirtualSerial::peek(void)
+{
+    //
+    // Wait for a character to be received.
+    //
+    if(available() == 0)
+    {
+        return -1;
+        //
+        // Block waiting for a character to be received (if the buffer is
+        // currently empty).
+        //
+    }
+
+    // Read a character from the buffer without advancing pointer
+    uint8_t ui8Char;
+    uint32_t ui32Read;
+    // Get read index in sRxBuffer
+    tUSBRingBufObject psRingBuf;
+    USBBufferInfoGet((tUSBBuffer *)&sRxBuffer, &psRingBuf);
+    // Read directly from buffer. Do not increment read index.
+    ui8Char = psRingBuf.pui8Buf[(psRingBuf.ui32ReadIndex + 1) % psRingBuf.ui32Size];
+    // Return the character to the caller.
+    return(ui8Char);
+}
+
+int USBVirtualSerial::read(void)
+{
+    // Wait for a character to be received.
+    if(available() == 0)
+    {
+        return -1;
+        // Block waiting for a character to be received (if the buffer is
+        // currently empty).
+    }
+
+    // Read a character from the buffer.
+    uint8_t ui8Char;
+    uint32_t ui32Read;
+    ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
+    // Return the character to the caller.
+    return(ui8Char);
+}
+
+void USBVirtualSerial::flush(void)
+{
+    USBBufferFlush((tUSBBuffer *)&sRxBuffer);
+    USBBufferFlush((tUSBBuffer *)&sTxBuffer);
+}
+
+size_t USBVirtualSerial::write(uint8_t c)
+{
+    // unsigned int numTransmit = 0;
+    //
+    // Check for valid arguments.
+    //
+    // ASSERT(c != 0);
+
+    USBBufferWrite((tUSBBuffer *)&sTxBuffer, (uint8_t *)&c, 1);
+
+    return 1;
+}
+
+USBVirtualSerial::operator bool()
+{
+	return true;
+}
 
 
-//*****************************************************************************
-//
-// Flag indicating whether or not we are currently sending a Break condition.
-//
-//*****************************************************************************
-bool g_bSendingBreak = false;
-
-//*****************************************************************************
-//
-// Global flag indicating that a USB configuration has been set.
-//
-//*****************************************************************************
-bool g_bUSBConfigured = false;
-
-uint32_t g_ui32VCPRxCount = 0;
-uint32_t g_ui32VCPTxCount = 0;
-
-uint32_t g_ui32Flags = 0;
-char *g_pcStatus = 0;
-tVCOMCheckInitBootloaderCallback pfnCheckInitBootloader = 0;
-
-//*****************************************************************************
-//
-// Take as many bytes from the transmit buffer as we have space for and move
-// them into the USB UART's transmit FIFO.
-//
-//*****************************************************************************
+// Private Methods //////////////////////////////////////////////////////////////
 void
-USBUARTPrimeTransmit()
+USBVirtualSerial::flushAll(void)
+{
+    flush();
+}
+
+void
+USBVirtualSerial::primeReceive()
 {
     uint32_t ui32Read;
     uint8_t ui8Char;
@@ -216,7 +309,7 @@ USBUARTPrimeTransmit()
     // If we are currently sending a break condition, don't receive any
     // more data. We will resume transmission once the break is turned off.
     //
-    if(g_bSendingBreak)
+    if(bSendingBreak)
     {
         return;
     }
@@ -225,12 +318,12 @@ USBUARTPrimeTransmit()
     // If there is space in the UART FIFO, try to read some characters
     // from the receive buffer to fill it again.
     //
-    while(USBBufferDataAvailable((tUSBBuffer *)&g_sRxBuffer))
+    while(USBBufferDataAvailable((tUSBBuffer *)&sRxBuffer))
     {
         //
         // Get a character from the buffer.
         //
-        ui32Read = USBBufferRead((tUSBBuffer *)&g_sRxBuffer, &ui8Char, 1);
+        ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
 
         //
         // Did we get a character?
@@ -238,13 +331,12 @@ USBUARTPrimeTransmit()
         if(ui32Read)
         {
             // Also Echo back to the USB VCOM Port
-            USBBufferWrite((tUSBBuffer *)&g_sTxBuffer,
-                           (uint8_t *)&ui8Char, 1);
+            // USBBufferWrite((tUSBBuffer *)&sTxBuffer, (uint8_t *)&ui8Char, 1);
 
             //
             // Update our count of bytes received via the UART.
             //
-            g_ui32VCPRxCount++;
+            ui32VCPRxCount++;
         }
         else
         {
@@ -262,7 +354,7 @@ USBUARTPrimeTransmit()
 //
 //*****************************************************************************
 void
-SetControlLineState(uint16_t ui16State)
+USBVirtualSerial::SetControlLineState(uint16_t ui16State)
 {
     //
     // TODO: If configured with GPIOs controlling the handshake lines,
@@ -277,7 +369,7 @@ SetControlLineState(uint16_t ui16State)
 //
 //*****************************************************************************
 bool
-SetLineCoding(tLineCoding *psLineCoding)
+USBVirtualSerial::SetLineCoding(tLineCoding *psLineCoding)
 {
     uint32_t ui32Config;
     bool bRetcode;
@@ -287,7 +379,12 @@ SetLineCoding(tLineCoding *psLineCoding)
     //
     bRetcode = true;
 
+    sConfiguredLineCoding.ui32Rate = psLineCoding->ui32Rate;
+    sConfiguredLineCoding.ui8Stop = psLineCoding->ui8Stop;
+    sConfiguredLineCoding.ui8Parity = psLineCoding->ui8Parity;
+    sConfiguredLineCoding.ui8Databits = psLineCoding->ui8Databits;
 
+    // Callback to check for need to enter bootloader
     if (pfnCheckInitBootloader != 0)
     {
         pfnCheckInitBootloader(psLineCoding);
@@ -412,6 +509,8 @@ SetLineCoding(tLineCoding *psLineCoding)
             break;
         }
     }
+    
+    if (!bRetcode) { sConfiguredLineCoding = {0,0,0,0}; }
 
     //
     // Let the caller know if we had a problem or not.
@@ -425,15 +524,18 @@ SetLineCoding(tLineCoding *psLineCoding)
 //
 //*****************************************************************************
 void
-GetLineCoding(tLineCoding *psLineCoding)
+USBVirtualSerial::GetLineCoding(tLineCoding *psLineCoding)
 {
-    uint32_t ui32Config = UART_CONFIG_WLEN_8 | UART_CONFIG_PAR_NONE | UART_CONFIG_STOP_ONE;
+    //uint32_t ui32Config = UART_CONFIG_WLEN_8 | UART_CONFIG_PAR_NONE | UART_CONFIG_STOP_ONE;
 
     //
     // Get the current default line coding
     //
-    psLineCoding->ui32Rate = DEFAULT_BIT_RATE;
-
+    psLineCoding->ui32Rate = sConfiguredLineCoding.ui32Rate;
+    psLineCoding->ui8Databits = sConfiguredLineCoding.ui8Databits;
+    psLineCoding->ui8Parity = sConfiguredLineCoding.ui8Parity;
+    psLineCoding->ui8Stop = sConfiguredLineCoding.ui8Stop;
+    /*
     //
     // Translate the configuration word length field into the format expected
     // by the host.
@@ -520,6 +622,7 @@ GetLineCoding(tLineCoding *psLineCoding)
             break;
         }
     }
+    */
 }
 
 //*****************************************************************************
@@ -531,7 +634,7 @@ GetLineCoding(tLineCoding *psLineCoding)
 //
 //*****************************************************************************
 void
-SendBreak(bool bSend)
+USBVirtualSerial::SendBreak(bool bSend)
 {
 
 }
@@ -574,7 +677,7 @@ SendBreak(bool bSend)
 //
 //*****************************************************************************
 uint32_t
-ControlHandler(void *pvCBData, uint32_t ui32Event,
+USBVirtualSerial::ControlHandler(void *pvCBData, uint32_t ui32Event,
                uint32_t ui32MsgValue, void *pvMsgData)
 {
     uint32_t ui32IntsOff;
@@ -582,26 +685,29 @@ ControlHandler(void *pvCBData, uint32_t ui32Event,
     //
     // Which event are we being asked to process?
     //
+    ctrlHandlerCalled = ui32Event;
+    ctrlHandlerCount++;
+    
     switch(ui32Event)
     {
         //
         // We are connected to a host and communication is now possible.
         //
         case USB_EVENT_CONNECTED:
-            g_bUSBConfigured = true;
+            bUSBConfigured = true;
 
             //
             // Flush our buffers.
             //
-            USBBufferFlush(&g_sTxBuffer);
-            USBBufferFlush(&g_sRxBuffer);
+            USBBufferFlush(&sTxBuffer);
+            USBBufferFlush(&sRxBuffer);
 
             //
             // Tell the main loop to update the display.
             //
             ui32IntsOff = MAP_IntMasterDisable();
-            g_pcStatus = "Connected";
-            g_ui32Flags |= COMMAND_STATUS_UPDATE;
+            pcStatus = "Connected";
+            ui32Flags |= COMMAND_STATUS_UPDATE;
             if(!ui32IntsOff)
             {
                 MAP_IntMasterEnable();
@@ -612,10 +718,10 @@ ControlHandler(void *pvCBData, uint32_t ui32Event,
         // The host has disconnected.
         //
         case USB_EVENT_DISCONNECTED:
-            g_bUSBConfigured = false;
+            bUSBConfigured = false;
             ui32IntsOff = MAP_IntMasterDisable();
-            g_pcStatus = "Disconnected";
-            g_ui32Flags |= COMMAND_STATUS_UPDATE;
+            pcStatus = "Disconnected";
+            ui32Flags |= COMMAND_STATUS_UPDATE;
             if(!ui32IntsOff)
             {
                 MAP_IntMasterEnable();
@@ -676,7 +782,6 @@ ControlHandler(void *pvCBData, uint32_t ui32Event,
 #endif
 
     }
-
     return(0);
 }
 
@@ -698,8 +803,7 @@ ControlHandler(void *pvCBData, uint32_t ui32Event,
 //
 //*****************************************************************************
 uint32_t
-TxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
-          void *pvMsgData)
+USBVirtualSerial::TxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue, void *pvMsgData)
 {
     //
     // Which event have we been sent?
@@ -711,7 +815,7 @@ TxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
             // Since we are using the USBBuffer, we don't need to do anything
             // here. Update Tx byte count.
             //
-            g_ui32VCPTxCount += ui32MsgValue;
+            ui32VCPTxCount += ui32MsgValue;
             break;
 
         //
@@ -747,8 +851,7 @@ TxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
 //
 //*****************************************************************************
 uint32_t
-RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
-          void *pvMsgData)
+USBVirtualSerial::RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue, void *pvMsgData)
 {
 //    uint32_t ui32Count;
 
@@ -766,8 +869,7 @@ RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
             // Feed some characters into the UART TX FIFO and enable the
             // interrupt so we are told when there is more space.
             //
-            USBUARTPrimeTransmit();
-            //MAP_UARTIntEnable(USB_UART_BASE, UART_INT_TX);
+            primeReceive();
             break;
         }
 
@@ -784,7 +886,6 @@ RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
             // Get the number of bytes in the buffer and add 1 if some data
             // still has to clear the transmitter.
             //
-//            ui32Count = MAP_UARTBusy(USB_UART_BASE) ? 1 : 0;
             return(0);
         }
 
@@ -811,7 +912,6 @@ RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
             break;
 #endif
     }
-
     return(0);
 }
 
@@ -821,14 +921,14 @@ RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32MsgValue,
 //
 //
 //*****************************************************************************
-void InitUSBVCOM(tVCOMCheckInitBootloaderCallback ptr)
+void USBVirtualSerial::InitUSBVCOM(tVCOMCheckInitBootloaderCallback ptr)
 {
-    g_bSendingBreak = false;
-    g_ui32Flags = 0;
-    g_bUSBConfigured = false;
-    g_ui32VCPTxCount = 0;
-    g_ui32VCPRxCount = 0;
-
+    bSendingBreak = false;
+    ui32Flags = 0;
+    ui32VCPTxCount = 0;
+    ui32VCPRxCount = 0;
+    pfnCheckInitBootloader = ptr;
+    
     //
     // Configure the required pins for USB operation.
     //
@@ -838,13 +938,13 @@ void InitUSBVCOM(tVCOMCheckInitBootloaderCallback ptr)
     //
     // Not configured initially.
     //
-    g_bUSBConfigured = false;
+    bUSBConfigured = false;
 
     //
     // Initialize the transmit and receive buffers.
     //
-    USBBufferInit(&g_sTxBuffer);
-    USBBufferInit(&g_sRxBuffer);
+    USBBufferInit(&sTxBuffer);
+    USBBufferInit(&sRxBuffer);
 
     //
     // Set the USB stack mode to Device mode with VBUS monitoring.
@@ -855,11 +955,8 @@ void InitUSBVCOM(tVCOMCheckInitBootloaderCallback ptr)
     // Pass our device information to the USB library and place the device
     // on the bus.
     //
-    USBDCDCInit(0, &g_sCDCDevice);
-
-    pfnCheckInitBootloader = ptr;
+    USBDCDCInit(0, &sCDCDevice);
 }
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
+// Global declaration
+USBVirtualSerial USBSerial;

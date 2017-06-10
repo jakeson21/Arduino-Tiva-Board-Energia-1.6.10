@@ -21,8 +21,8 @@
 #define TARGET_IS_BLIZZARD_RB1
 #define PART_TM4C123GH6PM
 #define PART_LM4F120H5QR
-#define PART_IS_BLIZZARD_RB1
-#define TARGET_IS_TM4C123_RB1
+//#define PART_IS_BLIZZARD_RB1
+//#define TARGET_IS_TM4C123_RB1
 #else
 #error "**** No PART defined or unsupported PART ****"
 #endif
@@ -306,6 +306,7 @@ void registerSysTickCb(void (*userFunc)(uint32_t));
 #include "WCharacter.h"
 #include "WString.h"
 #include "HardwareSerial.h"
+#include "USBVirtualSerial.h"
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);

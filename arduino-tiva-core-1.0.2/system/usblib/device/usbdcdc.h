@@ -302,31 +302,31 @@ typedef struct
     //
     //! The vendor ID that this device is to present in the device descriptor.
     //
-    const uint16_t ui16VID;
+    uint16_t ui16VID;
 
     //
     //! The product ID that this device is to present in the device descriptor.
     //
-    const uint16_t ui16PID;
+    uint16_t ui16PID;
 
     //
     //! The maximum power consumption of the device, expressed in milliamps.
     //
-    const uint16_t ui16MaxPowermA;
+    uint16_t ui16MaxPowermA;
 
     //
     //! Indicates whether the device is self- or bus-powered and whether or not
     //! it supports remote wakeup.  Valid values are USB_CONF_ATTR_SELF_PWR or
     //! USB_CONF_ATTR_BUS_PWR, optionally ORed with USB_CONF_ATTR_RWAKE.
     //
-    const uint8_t ui8PwrAttributes;
+    uint8_t ui8PwrAttributes;
 
     //
     //! A pointer to the callback function which will be called to notify
     //! the application of all asynchronous control events related to the
     //! operation of the device.
     //
-    const tUSBCallback pfnControlCallback;
+    tUSBCallback pfnControlCallback;
 
     //
     //! A client-supplied pointer which will be sent as the first
@@ -339,7 +339,7 @@ typedef struct
     //! A pointer to the callback function which will be called to notify
     //! the application of events related to the device's data receive channel.
     //
-    const tUSBCallback pfnRxCallback;
+    tUSBCallback pfnRxCallback;
 
     //
     //! A client-supplied pointer which will be sent as the first
@@ -353,7 +353,7 @@ typedef struct
     //! the application of events related to the device's data transmit
     //! channel.
     //
-    const tUSBCallback pfnTxCallback;
+    tUSBCallback pfnTxCallback;
 
     //
     //! A client-supplied pointer which will be sent as the first
@@ -380,7 +380,7 @@ typedef struct
     //! The number of descriptors provided in the ppStringDescriptors
     //! array.  This must be 1 + (5 * number of supported languages).
     //
-    const uint32_t ui32NumStringDescriptors;
+    uint32_t ui32NumStringDescriptors;
 
     //
     //! The private instance data for this device.  This memory
