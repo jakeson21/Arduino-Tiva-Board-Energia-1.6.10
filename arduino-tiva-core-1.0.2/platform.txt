@@ -99,3 +99,11 @@ tools.dslite.config.path={path}
 tools.dslite.cmd.path={path}/DebugServer/bin/DSLite
 tools.dslite.upload.pattern={cmd.path} {upload.verbose} load -c "{config.path}/{build.variant}.ccxml" -f "{build.path}/{build.project_name}.elf"
 
+# Custom windfu programmer
+tools.windfu.upload.params.verbose=-v
+tools.windfu.upload.params.quiet=
+tools.windfu.path={runtime.tools.windfu.path}
+tools.windfu.config.path=
+tools.windfu.cmd.path={path}/dfuprog
+tools.windfu.upload.pattern={cmd.path} {upload.verbose} -r -p 4 -f "{build.path}/{build.project_name}.bin"
+

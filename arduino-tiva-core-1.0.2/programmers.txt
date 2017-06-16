@@ -1,2 +1,4 @@
 dslite.name=dslite
 dslite.protocol=dslite
+windfu.name=windfu
+windfu.protocol=dfu
