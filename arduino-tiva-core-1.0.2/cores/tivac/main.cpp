@@ -26,6 +26,9 @@ bool g_bInitiateBootloaderFlag = false;
 
 void initiateDFUupdate()
 {
+    // pause for 1/10 th of a second to allow dfuprog to get serial state
+    ROM_SysCtlDelay(SysCtlClockGet() / (3*10));
+
     //
     // Terminate the USB device and detach from the bus.
     //

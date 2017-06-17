@@ -263,6 +263,7 @@ int USBVirtualSerial::read(void)
     uint8_t ui8Char;
     uint32_t ui32Read;
     ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
+    ui32VCPRxCount++;
     // Return the character to the caller.
     return(ui8Char);
 }
@@ -302,8 +303,8 @@ USBVirtualSerial::flushAll(void)
 void
 USBVirtualSerial::primeReceive()
 {
-    uint32_t ui32Read;
-    uint8_t ui8Char;
+    uint32_t ui32Read = 0;
+    uint8_t ui8Char = 0;
 
     //
     // If we are currently sending a break condition, don't receive any
@@ -320,10 +321,13 @@ USBVirtualSerial::primeReceive()
     //
     while(USBBufferDataAvailable((tUSBBuffer *)&sRxBuffer))
     {
+        // For now, just let calls to USBSerial.read() pull data out of buffer.
+        // But this needs to be here too.
+
         //
         // Get a character from the buffer.
         //
-        ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
+        //ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
 
         //
         // Did we get a character?
@@ -336,7 +340,7 @@ USBVirtualSerial::primeReceive()
             //
             // Update our count of bytes received via the UART.
             //
-            ui32VCPRxCount++;
+            //ui32VCPRxCount++;
         }
         else
         {
