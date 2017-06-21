@@ -8,14 +8,14 @@
 		"platforms": [{
 				"category": "ARDUINO-TIVA BOARDS",
 				"name": "Arduino-Tiva Boards",
-				"url": "https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/arduino-tiva-core-1.0.2-7.zip",
-				"checksum": "SHA-256:66A3179D78359F519316FE0C17A5C7DA3A56B7DDDD79BD06BA1EB853EF8CB50F",
+				"url": "https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/arduino-tiva-core-1.0.2-8.zip",
+				"checksum": "SHA-256:6FFACCD838025674A2DFC2DEDDD62AA095699089B87B8A0A1E7B531BAF82437C",
 				"help": {
 					"online": "https://hackaday.io/project/21284-arduino-tiva"
 				},
 				"version": "1.0.2",
 				"architecture": "tivac",
-				"archiveFileName": "arduino-tiva-core-1.0.2-7.zip",
+				"archiveFileName": "arduino-tiva-core-1.0.2-8.zip",
 				"boards": [{
 						"name": "Arduino-Tiva 80 MHz"
 					},
@@ -40,7 +40,7 @@
 					}
 
 				],
-				"size": "5096678"
+				"size": "5096686"
 			}
 		],
 		"tools": [{
@@ -99,11 +99,11 @@
 				"name":"windfu",
 				"version":"1001",
 				"systems": [{
-						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/windfu-1.0.0-i686-mingw32.zip",
-						"checksum":"SHA-256:07CDAF835B8C36198E518E222973E13E4E8DEEB1FE3A3EDC11D33EAB45D0FBA3",
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/windfu-1.0.1-i686-mingw32.zip",
+						"checksum":"SHA-256:5E1CF05688CA0A9BCE61E7A3F25C3BD835551893BC8B9A96069ADF99896226A6",
 						"host":"i686-mingw32",
-						"archiveFileName":"windfu-1.0.0-i686-mingw32.zip",
-						"size":"27270"
+						"archiveFileName":"windfu-1.0.1-i686-mingw32.zip",
+						"size":"20060"
 					}	
 				]
 			}
