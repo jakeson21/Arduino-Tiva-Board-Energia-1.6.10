@@ -107,10 +107,10 @@
 					},
 					{
 						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
-						"checksum":"SHA-256:8739C76E681F900923B900C9DF0EF75CF421D39CABB54650C4B9AD19B6A76D85",
+						"checksum":"SHA-256:4C22D98EB6DF24215A1B93D4248DFBA10BBAB8B7E6F1C5ABC1CAB35A97337795",
 						"host":"x86_64-pc-linux-gnu",
 						"archiveFileName":"tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
-						"size":"22"
+						"size":"122"
 					}	                    
 				]
 			}
