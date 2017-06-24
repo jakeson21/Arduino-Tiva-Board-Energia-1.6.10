@@ -35,8 +35,8 @@
 					},
                     {
 						"packager":"Arduino-Tiva",
-						"name":"windfu",
-						"version":"1001"
+						"name":"tiva-dfu-prog",
+						"version":"1.0.0"
 					}
 
 				],
@@ -96,15 +96,22 @@
 				]
 			},
 			{
-				"name":"windfu",
-				"version":"1001",
+				"name":"tiva-dfu-prog",
+				"version":"1.0.0",
 				"systems": [{
-						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/windfu-1.0.1-i686-mingw32.zip",
-						"checksum":"SHA-256:5E1CF05688CA0A9BCE61E7A3F25C3BD835551893BC8B9A96069ADF99896226A6",
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.1-i686-mingw32.zip",
+						"checksum":"SHA-256:5323234CB9769365C6E0EBE887626FC79356360A8EDA54B8012BDF3BEC91839F",
 						"host":"i686-mingw32",
-						"archiveFileName":"windfu-1.0.1-i686-mingw32.zip",
-						"size":"20060"
-					}	
+						"archiveFileName":"tiva-dfu-prog-1.0.1-i686-mingw32.zip",
+						"size":"20063"
+					},
+					{
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
+						"checksum":"SHA-256:8739C76E681F900923B900C9DF0EF75CF421D39CABB54650C4B9AD19B6A76D85",
+						"host":"x86_64-pc-linux-gnu",
+						"archiveFileName":"tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
+						"size":"22"
+					}	                    
 				]
 			}
             
