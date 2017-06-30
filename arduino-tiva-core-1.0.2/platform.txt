@@ -99,11 +99,11 @@ tools.dslite.config.path={path}
 tools.dslite.cmd.path={path}/DebugServer/bin/DSLite
 tools.dslite.upload.pattern={cmd.path} {upload.verbose} load -c "{config.path}/{build.variant}.ccxml" -f "{build.path}/{build.project_name}.elf"
 
-# Custom windfu programmer
-tools.windfu.upload.params.verbose=-v
-tools.windfu.upload.params.quiet=
-tools.windfu.path={runtime.tools.windfu.path}
-tools.windfu.config.path=
-tools.windfu.cmd.path={path}/dfuprog
-tools.windfu.upload.pattern={cmd.path} {upload.verbose} -r -p {serial.port} -f "{build.path}/{build.project_name}.bin"
+# Custom dfuprog programmer
+tools.dfuprog.upload.params.verbose=-v
+tools.dfuprog.upload.params.quiet=
+tools.dfuprog.path={runtime.tools.dfuprog.path}
+tools.dfuprog.config.path=
+tools.dfuprog.cmd.path={path}/tiva-dfu-prog
+tools.dfuprog.upload.pattern={cmd.path} {upload.verbose} -r -p {serial.port} -f "{build.path}/{build.project_name}.bin"
 
