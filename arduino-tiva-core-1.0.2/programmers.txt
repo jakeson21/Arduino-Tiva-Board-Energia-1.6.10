@@ -1,4 +1,4 @@
 dslite.name=dslite
 dslite.protocol=dslite
-dfuprog.name=dfuprog
-dfuprog.protocol=dfu
+tiva-dfu-prog.name=Tiva DFU Programmer
+tiva-dfu-prog.protocol=dfu

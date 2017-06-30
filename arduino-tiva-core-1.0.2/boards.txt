@@ -9,7 +9,7 @@ EK-TM4C123GXL-80.build.ldscript=lm4fcpp_blizzard.ld
 EK-TM4C123GXL-80.build.board=EK-TM4C123GXL
 EK-TM4C123GXL-80.build.mcu=cortex-m4
 EK-TM4C123GXL-80.upload.maximum_ram_size=32768
-EK-TM4C123GXL-80.upload.tool=windfu
+EK-TM4C123GXL-80.upload.tool=tiva-dfu-prog
 EK-TM4C123GXL-80.upload.protocol=dfu
 
 ##############################################################
@@ -23,6 +23,6 @@ EK-TM4C123GXL-16.build.ldscript=lm4fcpp_blizzard.ld
 EK-TM4C123GXL-16.build.board=EK-TM4C123GXL
 EK-TM4C123GXL-16.build.mcu=cortex-m4
 EK-TM4C123GXL-16.upload.maximum_ram_size=32768
-EK-TM4C123GXL-16.upload.tool=windfu
+EK-TM4C123GXL-16.upload.tool=tiva-dfu-prog
 EK-TM4C123GXL-16.upload.protocol=dfu
 
