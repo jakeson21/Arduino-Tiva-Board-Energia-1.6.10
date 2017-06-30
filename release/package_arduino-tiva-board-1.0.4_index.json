@@ -36,7 +36,7 @@
                     {
 						"packager":"Arduino-Tiva",
 						"name":"tiva-dfu-prog",
-						"version":"1.0.0"
+						"version":"1.0.1"
 					}
 
 				],
@@ -97,20 +97,20 @@
 			},
 			{
 				"name":"tiva-dfu-prog",
-				"version":"1.0.0",
+				"version":"1.0.1",
 				"systems": [{
 						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.1-i686-mingw32.zip",
-						"checksum":"SHA-256:5323234CB9769365C6E0EBE887626FC79356360A8EDA54B8012BDF3BEC91839F",
+						"checksum":"SHA-256:B9B481FBDFF6084C65E7DDCFF0155B86380E8D8BD462595ED980E5B1FA718830",
 						"host":"i686-mingw32",
 						"archiveFileName":"tiva-dfu-prog-1.0.1-i686-mingw32.zip",
-						"size":"20063"
+						"size":"20376"
 					},
 					{
-						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
-						"checksum":"SHA-256:4C22D98EB6DF24215A1B93D4248DFBA10BBAB8B7E6F1C5ABC1CAB35A97337795",
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.1-x86_64-pc-linux-gnu.tar.gz",
+						"checksum":"SHA-256:B19A0BA075D69BE68F916A1AE503EA7B73C955E35FECFCC7656DEDA12202B5AC",
 						"host":"x86_64-pc-linux-gnu",
-						"archiveFileName":"tiva-dfu-prog-1.0.0-x86_64-pc-linux-gnu.tar.gz",
-						"size":"122"
+						"archiveFileName":"tiva-dfu-prog-1.0.1-x86_64-pc-linux-gnu.tar.gz",
+						"size":"99849"
 					}	                    
 				]
 			}
