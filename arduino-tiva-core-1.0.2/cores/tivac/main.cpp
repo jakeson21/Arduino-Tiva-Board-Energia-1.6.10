@@ -113,6 +113,7 @@ void initiateDFUupdate()
 
 void CheckForBootloaderRequest(tLineCoding *psLineCoding)
 {
+    g_bInitiateBootloaderFlag = false;
     USBSerial.print("Connected at ");
     USBSerial.println(psLineCoding->ui32Rate);
     if (psLineCoding->ui32Rate == BOOTLOADER_INIT_SERIAL_RATE)
