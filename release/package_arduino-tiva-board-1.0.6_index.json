@@ -8,14 +8,14 @@
 		"platforms": [{
 				"category": "ARDUINO-TIVA BOARDS",
 				"name": "Arduino-Tiva Boards",
-				"url": "https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/arduino-tiva-core-1.0.2-11.zip",
+				"url": "https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/arduino-tiva-core-1.0.2-12.zip",
 				"checksum": "SHA-256:FE1919C5033266BCB4E7661566CC4FBBFED2454410D7BA86B40B199638CD9AAF",
 				"help": {
 					"online": "https://hackaday.io/project/21284-arduino-tiva"
 				},
 				"version": "1.0.2",
 				"architecture": "tivac",
-				"archiveFileName": "arduino-tiva-core-1.0.2-11.zip",
+				"archiveFileName": "arduino-tiva-core-1.0.2-12.zip",
 				"boards": [{
 						"name": "Arduino-Tiva 80 MHz"
 					},
