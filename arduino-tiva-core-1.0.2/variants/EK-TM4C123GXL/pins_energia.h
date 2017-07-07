@@ -327,12 +327,12 @@ const uint32_t digital_pin_to_analog_in[] = {
     NOT_ON_ADC,     /*  1 - PA_0 */
     NOT_ON_ADC,     /*  2 - PA_7 */
     NOT_ON_ADC,     /*  3 - PA_6 */
-    ADC_CTL_CH6,    /*  4 - PE_4 */
-    ADC_CTL_CH7,    /*  5 - PE_5 */
-    ADC_CTL_CH8,    /*  6 - PB_4 */
-    ADC_CTL_CH9,    /*  7 - PB_5 */
-    ADC_CTL_CH10,   /*  8 - PD_1 */
-    ADC_CTL_CH11,   /*  9 - PD_0 */
+    ADC_CTL_CH9,    /*  4 - PE_4 */
+    ADC_CTL_CH8,    /*  5 - PE_5 */
+    ADC_CTL_CH10,   /*  6 - PB_4 */
+    ADC_CTL_CH11,   /*  7 - PB_5 */
+    ADC_CTL_CH6,    /*  8 - PD_1 */
+    ADC_CTL_CH7,    /*  9 - PD_0 */
     NOT_ON_ADC,     /* 10 - PF_3 */
     NOT_ON_ADC,     /* 11 - PF_1 */
     NOT_ON_ADC,     /* 12 - PF_0 */

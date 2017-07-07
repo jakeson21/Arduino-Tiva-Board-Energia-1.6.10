@@ -1,5 +1,5 @@
 ##############################################################
-EK-TM4C123GXL-80.name=Arduino-Tiva (Tiva C) w/ tm4c123 (80MHz)
+EK-TM4C123GXL-80.name=Arduino-Tiva 80MHz
 EK-TM4C123GXL-80.upload.maximum_size=262144
 EK-TM4C123GXL-80.build.mcu=cortex-m4
 EK-TM4C123GXL-80.build.f_cpu=80000000L
@@ -11,9 +11,13 @@ EK-TM4C123GXL-80.build.mcu=cortex-m4
 EK-TM4C123GXL-80.upload.maximum_ram_size=32768
 EK-TM4C123GXL-80.upload.tool=tiva-dfu-prog
 EK-TM4C123GXL-80.upload.protocol=dfu
+EK-TM4C123GXL-80.vid.0=0x1CBE
+EK-TM4C123GXL-80.pid.0=0x0002
+EK-TM4C123GXL-80.vid.1=0x1CBE
+EK-TM4C123GXL-80.pid.1=0x00FF
 
 ##############################################################
-EK-TM4C123GXL-16.name=Arduino-Tiva (Tiva C) w/ tm4c123 (16MHz)
+EK-TM4C123GXL-16.name=Arduino-Tiva 16MHz
 EK-TM4C123GXL-16.upload.maximum_size=262144
 EK-TM4C123GXL-16.build.mcu=cortex-m4
 EK-TM4C123GXL-16.build.f_cpu=16000000L
@@ -25,4 +29,8 @@ EK-TM4C123GXL-16.build.mcu=cortex-m4
 EK-TM4C123GXL-16.upload.maximum_ram_size=32768
 EK-TM4C123GXL-16.upload.tool=tiva-dfu-prog
 EK-TM4C123GXL-16.upload.protocol=dfu
+EK-TM4C123GXL-80.vid.0=0x1CBE
+EK-TM4C123GXL-80.pid.0=0x0002
+EK-TM4C123GXL-80.vid.1=0x1CBE
+EK-TM4C123GXL-80.pid.1=0x00FF
 

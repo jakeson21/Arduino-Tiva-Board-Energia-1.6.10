@@ -28,11 +28,6 @@
 						"name":"arm-none-eabi-gcc",
 						"version":"4.8.4-20140725"
 					},
-					{
-						"packager":"Arduino-Tiva",
-						"name":"dslite",
-						"version":"6.2.1.1594"
-					},
                     {
 						"packager":"Arduino-Tiva",
 						"name":"tiva-dfu-prog",
@@ -67,32 +62,6 @@
 						"archiveFileName": "gcc-arm-none-eabi-4.8.4-20140725-x86_64-pc-linux-gnu.tar.bz2",
 						"size": "68654066"
 					}								
-				]
-			},
-			{
-				"name":"dslite",
-				"version":"6.2.1.1594",
-				"systems": [{
-						"url":"https://s3.amazonaws.com/energiaUS/tools/windows/dslite-6.2.1.1594-i686-mingw32.zip",
-						"checksum":"SHA-256:aa523ddddbb23fb93fd2705990a10021b3b1ad6553d6149159fc9c0f68b56824",
-						"host":"i686-mingw32",
-						"archiveFileName":"dslite-6.2.1.1594-i686-mingw32.zip",
-						"size":"33819921"
-					},
-					{
-						"url":"https://s3.amazonaws.com/energiaUS/tools/macosx/dslite-6.2.1.1594-x86_64-apple-darwin.tar.bz2",
-						"checksum":"SHA-256:f872f284b090d9c635812ef588645c498eadd1dc8ab8d867b54895d57ddf0127",
-						"host":"x86_64-apple-darwin",
-						"archiveFileName":"dslite-6.2.1.1594-x86_64-apple-darwin.tar.bz2",
-						"size":"14735532"
-					},
-					{
-						"url":"https://s3.amazonaws.com/energiaUS/tools/linux64/dslite-6.2.1.1594-i386-x86_64-pc-linux-gnu.tar.bz2",
-						"checksum":"SHA-256:dfa17d2c26699e1480a13bd7f2941541417c59276ee38d30848e4606e1fba33b",
-						"host":"x86_64-pc-linux-gnu",
-						"archiveFileName":"dslite-6.2.1.1594-i386-x86_64-pc-linux-gnu.tar.bz2",
-						"size":"20539172"
-					}	
 				]
 			},
 			{

@@ -5,7 +5,7 @@
 # For more info:
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
-name=Energia Arduino-Tiva ARM (32-bits) Boards
+name=Arduino-Tiva (ARM M4F 32-bits) Boards
 version=1.0.2
 
 # TivaC compile variables
@@ -90,14 +90,6 @@ recipe.output.save_file={build.project_name}.{build.variant}.bin
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=\.text\s+([0-9]+).*
-
-# TI's DSLite
-tools.dslite.upload.params.verbose=
-tools.dslite.upload.params.quiet=
-tools.dslite.path={runtime.tools.dslite.path}
-tools.dslite.config.path={path}
-tools.dslite.cmd.path={path}/DebugServer/bin/DSLite
-tools.dslite.upload.pattern={cmd.path} {upload.verbose} load -c "{config.path}/{build.variant}.ccxml" -f "{build.path}/{build.project_name}.elf"
 
 # Custom tiva-dfu-prog programmer
 tools.tiva-dfu-prog.upload.params.verbose=-v
