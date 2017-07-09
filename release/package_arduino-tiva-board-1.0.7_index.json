@@ -1,0 +1,91 @@
+{
+	"packages": [{
+		"maintainer": "Jacob Miller",
+		"help": {
+			"online": "https://hackaday.io/project/21284-arduino-tiva"
+		},
+		"websiteURL": "https://github.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10",
+		"platforms": [{
+				"category": "ARDUINO-TIVA BOARDS",
+				"name": "Arduino-Tiva Boards",
+				"url": "https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/arduino-tiva-core-1.0.2-14.zip",
+				"checksum": "SHA-256:DFCFD486F4A54BC685D26A9E9F00B13FB0E23455D90F14D3ED0601B0225323B2",
+				"help": {
+					"online": "https://hackaday.io/project/21284-arduino-tiva"
+				},
+				"version": "1.0.2",
+				"architecture": "tivac",
+				"archiveFileName": "arduino-tiva-core-1.0.2-14.zip",
+				"boards": [{
+						"name": "Arduino-Tiva 80 MHz"
+					},
+					{
+						"name": "Arduino-Tiva 16 MHz"
+					}
+				],
+				"toolsDependencies": [{
+						"packager":"Arduino-Tiva",
+						"name":"arm-none-eabi-gcc",
+						"version":"4.8.4-20140725"
+					},
+                    {
+						"packager":"Arduino-Tiva",
+						"name":"tiva-dfu-prog",
+						"version":"1.0.1"
+					}
+
+				],
+				"size": "5105596"
+			}
+		],
+		"tools": [{
+				"name":"arm-none-eabi-gcc",
+				"version":"4.8.4-20140725",
+				"systems": [{					
+						"url": "https://s3.amazonaws.com/energiaUS/tools/windows/gcc-arm-none-eabi-4.8.4-20140725-windows.tar.gz",
+						"checksum": "SHA-256:2ab5a6ad2a32f976d17b7ef9222623e6f9881be908047cb05730ccd89eb79a1d",
+						"host": "i686-mingw32",
+						"archiveFileName": "gcc-arm-none-eabi-4.8.4-20140725-windows.tar.gz",
+						"size": "82014307"
+					},
+					{
+						"url": "https://s3.amazonaws.com/energiaUS/tools/macosx/gcc-arm-none-eabi-4.8.4-20140725-mac.tar.bz2",
+						"checksum": "SHA-256:66c9261fdd6d646931dfe940e8daf38d3b11cfba8a7e714c7a3811146b6dc9c7",
+						"host": "x86_64-apple-darwin",
+						"archiveFileName": "gcc-arm-none-eabi-4.8.4-20140725-mac.tar.bz2",
+						"size": "52518522"
+					},
+					{
+						"url": "https://s3.amazonaws.com/energiaUS/tools/linux64/gcc-arm-none-eabi-4.8.4-20140725-x86_64-pc-linux-gnu.tar.bz2",
+						"checksum": "SHA-256:00636c299e7a420212cdc1643d5c52d3e82eb66c8ce0e4693327cd1e936b52db",
+						"host": "x86_64-pc-linux-gnu",
+						"archiveFileName": "gcc-arm-none-eabi-4.8.4-20140725-x86_64-pc-linux-gnu.tar.bz2",
+						"size": "68654066"
+					}								
+				]
+			},
+			{
+				"name":"tiva-dfu-prog",
+				"version":"1.0.1",
+				"systems": [{
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.1-i686-mingw32.zip",
+						"checksum":"SHA-256:B9B481FBDFF6084C65E7DDCFF0155B86380E8D8BD462595ED980E5B1FA718830",
+						"host":"i686-mingw32",
+						"archiveFileName":"tiva-dfu-prog-1.0.1-i686-mingw32.zip",
+						"size":"20376"
+					},
+					{
+						"url":"https://raw.githubusercontent.com/jakeson21/Arduino-Tiva-Board-Energia-1.6.10/master/release/tiva-dfu-prog-1.0.1-x86_64-pc-linux-gnu.tar.gz",
+						"checksum":"SHA-256:007B76C228522B1345ACD3510EED6C0DAF0196F60D2F8776A9129D897BACC2A5",
+						"host":"x86_64-pc-linux-gnu",
+						"archiveFileName":"tiva-dfu-prog-1.0.1-x86_64-pc-linux-gnu.tar.gz",
+						"size":"147548"
+					}	                    
+				]
+			}
+            
+		],
+		"email": "jake_son@yahoo.com",
+		"name": "Arduino-Tiva"
+	}]
+}
