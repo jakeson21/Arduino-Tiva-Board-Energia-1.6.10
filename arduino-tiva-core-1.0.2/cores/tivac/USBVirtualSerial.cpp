@@ -101,13 +101,13 @@ static const uint8_t * const g_ppui8StringDescriptors[] =
 static uint32_t RxHandlerProxy(void *pvCBData, uint32_t ui32Event,
             uint32_t ui32MsgValue, void *pvMsgData)
 {
-    USBSerial.RxHandler(pvCBData, ui32Event, ui32MsgValue, pvMsgData);
+    return USBSerial.RxHandler(pvCBData, ui32Event, ui32MsgValue, pvMsgData);
 }
 
 static uint32_t TxHandlerProxy(void *pvi32CBData, uint32_t ui32Event,
             uint32_t ui32MsgValue, void *pvMsgData)
 {
-    USBSerial.TxHandler(pvi32CBData, ui32Event, ui32MsgValue, pvMsgData);
+    return USBSerial.TxHandler(pvi32CBData, ui32Event, ui32MsgValue, pvMsgData);
 }
 
 static uint32_t CtrlHandlerProxy(void *pvCBData, uint32_t ui32Event,
@@ -239,12 +239,12 @@ int USBVirtualSerial::peek(void)
 
     // Read a character from the buffer without advancing pointer
     uint8_t ui8Char;
-    uint32_t ui32Read;
+    // uint32_t ui32Read;
     // Get read index in sRxBuffer
     tUSBRingBufObject psRingBuf;
     USBBufferInfoGet((tUSBBuffer *)&sRxBuffer, &psRingBuf);
     // Read directly from buffer. Do not increment read index.
-    ui8Char = psRingBuf.pui8Buf[(psRingBuf.ui32ReadIndex + 1) % psRingBuf.ui32Size];
+    ui8Char = psRingBuf.pui8Buf[psRingBuf.ui32ReadIndex];
     // Return the character to the caller.
     return(ui8Char);
 }
@@ -263,7 +263,7 @@ int USBVirtualSerial::read(void)
     uint8_t ui8Char;
     uint32_t ui32Read;
     ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
-    ui32VCPRxCount++;
+    ui32VCPRxCount += ui32Read;
     // Return the character to the caller.
     return(ui8Char);
 }
@@ -303,8 +303,8 @@ USBVirtualSerial::flushAll(void)
 void
 USBVirtualSerial::primeReceive()
 {
-    uint32_t ui32Read = 0;
-    uint8_t ui8Char = 0;
+    //uint32_t ui32Read = 0;
+    //uint8_t ui8Char = 0;
 
     //
     // If we are currently sending a break condition, don't receive any
@@ -319,37 +319,37 @@ USBVirtualSerial::primeReceive()
     // If there is space in the UART FIFO, try to read some characters
     // from the receive buffer to fill it again.
     //
-    while(USBBufferDataAvailable((tUSBBuffer *)&sRxBuffer))
-    {
-        // For now, just let calls to USBSerial.read() pull data out of buffer.
-        // But this needs to be here too.
+    // while(USBBufferDataAvailable((tUSBBuffer *)&sRxBuffer))
+    // {
+        // // For now, just let calls to USBSerial.read() pull data out of buffer.
+        // // But this needs to be here too.
 
-        //
-        // Get a character from the buffer.
-        //
-        //ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
+        // //
+        // // Get a character from the buffer.
+        // //
+        // //ui32Read = USBBufferRead((tUSBBuffer *)&sRxBuffer, &ui8Char, 1);
 
-        //
-        // Did we get a character?
-        //
-        if(ui32Read)
-        {
-            // Also Echo back to the USB VCOM Port
-            // USBBufferWrite((tUSBBuffer *)&sTxBuffer, (uint8_t *)&ui8Char, 1);
+        // //
+        // // Did we get a character?
+        // //
+        // if(ui32Read)
+        // {
+            // // Also Echo back to the USB VCOM Port
+            // // USBBufferWrite((tUSBBuffer *)&sTxBuffer, (uint8_t *)&ui8Char, 1);
 
-            //
-            // Update our count of bytes received via the UART.
-            //
-            //ui32VCPRxCount++;
-        }
-        else
-        {
-            //
-            // We ran out of characters so exit the function.
-            //
-            return;
-        }
-    }
+            // //
+            // // Update our count of bytes received via the UART.
+            // //
+            // //ui32VCPRxCount++;
+        // }
+        // else
+        // {
+            // //
+            // // We ran out of characters so exit the function.
+            // //
+            // return;
+        // }
+    // }
 }
 
 //*****************************************************************************
@@ -873,7 +873,7 @@ USBVirtualSerial::RxHandler(void *pvCBData, uint32_t ui32Event, uint32_t ui32Msg
             // Feed some characters into the UART TX FIFO and enable the
             // interrupt so we are told when there is more space.
             //
-            primeReceive();
+            //primeReceive();
             break;
         }
 
