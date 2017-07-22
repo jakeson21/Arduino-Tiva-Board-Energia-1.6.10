@@ -1,7 +1,8 @@
 // Jacob Miller 
-// 2017-07-04
+// 2017-07-08
 //
-// Also demonstrates the use of USBSerial.print()
+// Demonstrates using Servo library.
+// Also demonstrates the use of USBSerial.parseInt()
 //
 
 #include <Servo.h>
@@ -30,6 +31,8 @@ void setup()
 
   USBSerial.print("Servo on pin ");
   USBSerial.println(current_servo_pin);
+  USBSerial.print("Enter a number 2 to 34 to change to that digital pin");
+
 }
 
 void loop()
